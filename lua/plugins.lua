@@ -7,17 +7,12 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
-	-- { src = "https://github.com/blazkowolf/gruber-darker.nvim" },
-	-- { src = local_dev .. "/personal/techbase.nvim", version = "fix/core-hl-groups" },
 	{ src = "https://github.com/folke/snacks.nvim" },
+	{ src = "https://github.com/mfussenegger/nvim-lint" },
 	{ src = "https://github.com/vieitesss/miniharp.nvim" },
 	{ src = "https://github.com/vieitesss/gh-permalink.nvim" },
-	-- { src = local_dev .. "/personal/miniharp.nvim", version = "fix/do-not-save-index" },
-	-- { src = "https://github.com/ThePrimeagen/harpoon",        version = "harpoon2" },
-	{ src = "https://github.com/ibhagwan/fzf-lua" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-	-- { src = "https://github.com/vieitesss/command.nvim" },
 	{ src = "https://github.com/tpope/vim-fugitive" },
 	{ src = "https://github.com/github/copilot.vim" },
 	{ src = "https://github.com/olimorris/codecompanion.nvim" },
@@ -29,6 +24,10 @@ vim.pack.add({
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
 vim.cmd.colorscheme("catppuccin")
+
+-- ═══════════════════════════════════════════════════════════
+-- LUALINE
+-- ═══════════════════════════════════════════════════════════
 
 require("lualine").setup({
 	options = {
@@ -85,18 +84,37 @@ require("lualine").setup({
 	extensions = {},
 })
 
+-- ═══════════════════════════════════════════════════════════
+-- WHICH KEY
+-- ═══════════════════════════════════════════════════════════
+
 require("which-key").setup({})
 
-require("miniharp").setup({ show_on_autoload = true })
+-- ═══════════════════════════════════════════════════════════
+-- MASON
+-- ═══════════════════════════════════════════════════════════
+
 require("mason").setup({})
--- require('techbase').setup({})
--- require('gruber-darker').setup({
---     bold = false,
---     italic = {
---         strings = false,
---     },
--- })
-require("gitsigns").setup({ signcolumn = false })
+
+-- ═══════════════════════════════════════════════════════════
+-- GITSIGNS
+-- ═══════════════════════════════════════════════════════════
+
+require("gitsigns").setup({
+	signcolumn = true,
+	-- signs = {
+	-- 	add = { text = "+" },
+	-- 	change = { text = "~" },
+	-- 	delete = { text = "_" },
+	-- 	topdelete = { text = "‾" },
+	-- 	changedelete = { text = "~" },
+	-- },
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- BLINK
+-- ═══════════════════════════════════════════════════════════
+
 require("blink.cmp").setup({
 	fuzzy = { implementation = "prefer_rust_with_warning" },
 	signature = { enabled = true },
@@ -170,39 +188,46 @@ require("snacks").setup({
 	},
 })
 
-local actions = require("fzf-lua.actions")
-require("fzf-lua").setup({
-	winopts = {
-		height = 1,
-		width = 1,
-		backdrop = 85,
-		preview = {
-			horizontal = "right:70%",
-		},
-	},
-	keymap = {
-		builtin = {
-			["<C-f>"] = "preview-page-down",
-			["<C-b>"] = "preview-page-up",
-			["<C-p>"] = "toggle-preview",
-		},
-		fzf = {
-			["ctrl-a"] = "toggle-all",
-			["ctrl-t"] = "first",
-			["ctrl-g"] = "last",
-			["ctrl-d"] = "half-page-down",
-			["ctrl-u"] = "half-page-up",
-		},
-	},
-	actions = {
-		files = {
-			["ctrl-q"] = actions.file_sel_to_qf,
-			["ctrl-n"] = actions.toggle_ignore,
-			["ctrl-h"] = actions.toggle_hidden,
-			["enter"] = actions.file_edit_or_qf,
-		},
-	},
-})
+-- ═══════════════════════════════════════════════════════════
+-- LINTER
+-- ═══════════════════════════════════════════════════════════
+
+-- require("nvim-lint").setup({
+-- 	event = {
+-- 		"BufReadPre",
+-- 		"BufNewFile",
+-- 	},
+-- 	config = function()
+-- 		local lint = require("lint")
+--
+-- 		lint.linters_by_ft = {
+-- 			python = { "ruff" },
+-- 			-- python = { "pylint" },
+-- 			markdown = { "markdownlint" },
+-- 			ansible = { "ansible_lint" }, -- NOTE: make sure to use ansible_lint and not ansible-lint
+-- 			yaml = { "yamllint" },
+-- 			terraform = { "tflint" },
+-- 			javascript = { "eslint_d" },
+-- 			typescript = { "eslint_d" },
+-- 			javascriptreact = { "eslint_d" },
+-- 			typescriptreact = { "eslint_d" },
+-- 			svelte = { "eslint_d" },
+-- 		}
+--
+-- 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+--
+-- 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+-- 			group = lint_augroup,
+-- 			callback = function()
+-- 				lint.try_lint()
+-- 			end,
+-- 		})
+-- 	end,
+-- })
+
+-- ═══════════════════════════════════════════════════════════
+-- CODE COMPANION
+-- ═══════════════════════════════════════════════════════════
 
 require("codecompanion").setup({
 	extensions = {
@@ -217,6 +242,9 @@ require("codecompanion").setup({
 	},
 })
 
+-- ═══════════════════════════════════════════════════════════
+-- VIMTEX
+-- ═══════════════════════════════════════════════════════════
 vim.g.vimtex_imaps_enabled = 0
 vim.g.vimtex_view_method = "skim"
 vim.g.latex_view_general_viewer = "skim"

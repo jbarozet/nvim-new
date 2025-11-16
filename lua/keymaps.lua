@@ -21,6 +21,9 @@ map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
+-- Delete buffer without closing window
+map("n", "<leader>bd", function () Snacks.bufdelete() end, { desc = "Delete Buffer" })
+
 -- ═══════════════════════════════════════════════════════════
 -- WINDOW MANAGEMENT (splitting and navigation)
 -- ═══════════════════════════════════════════════════════════
@@ -146,6 +149,11 @@ map("n", "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps
 -- Highlights
 map("n", "<leader>fH", function() Snacks.picker.highlights() end, { desc = "Highlights" })
 
+-- Git branches
+map("n", "<leader>ga", function() Snacks.picker.git_branches({ layout = "select"}) end, { desc = "Git Branches" })
+
+-- Projects
+map("n", "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects" })
 
 
 -- ═══════════════════════════════════════════════════════════
