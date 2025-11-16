@@ -4,8 +4,10 @@ local HOME = vim.fn.expand("~")
 local local_dev = "file://" .. HOME
 vim.pack.add({
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- pull LSP server configurations
 	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/catppuccin/nvim" },
+	-- { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/mfussenegger/nvim-lint" },
@@ -18,10 +20,15 @@ vim.pack.add({
 	{ src = "https://github.com/olimorris/codecompanion.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/ravitemer/mcphub.nvim" },
+	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/lervag/vimtex" },
 })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
+-- ═══════════════════════════════════════════════════════════
+-- COLOR SCHEME
+-- ═══════════════════════════════════════════════════════════
 
 vim.cmd.colorscheme("catppuccin")
 
@@ -110,6 +117,23 @@ require("gitsigns").setup({
 	-- 	changedelete = { text = "~" },
 	-- },
 })
+
+-- ═══════════════════════════════════════════════════════════
+-- TREESITTER
+-- ═══════════════════════════════════════════════════════════
+
+-- require('nvim-treesitter.configs').setup {
+-- 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
+-- 	ensure_installed = { "javascript", "typescript", "python", "c", "lua", "vim", "vimdoc", "query", "htmldjango", "gdscript", "godot_resource", "gdshader" },
+-- 	sync_install = false,
+-- 	auto_install = true,
+-- 	ignore_install = {},
+-- 	highlight = {
+-- 		enable = true,
+-- 		additional_vim_regex_highlighting = false,
+-- 	},
+-- }
+--
 
 -- ═══════════════════════════════════════════════════════════
 -- BLINK
@@ -238,6 +262,26 @@ require("codecompanion").setup({
 				make_slash_commands = true,
 				show_result_in_chat = true,
 			},
+		},
+	},
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- TOGGLETERM
+-- ═══════════════════════════════════════════════════════════
+
+require("toggleterm").setup({
+	version = "*",
+	config = false,
+	direction = "float",
+	open_mapping = [[<c-]>]],
+	close_on_exit = true,
+	float_opts = {
+		border = "curved",
+		winblend = 0,
+		highlights = {
+			border = "Normal",
+			background = "Normal",
 		},
 	},
 })

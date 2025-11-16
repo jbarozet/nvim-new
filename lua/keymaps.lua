@@ -22,7 +22,9 @@ map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Delete buffer without closing window
-map("n", "<leader>bd", function () Snacks.bufdelete() end, { desc = "Delete Buffer" })
+map("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
 
 -- ═══════════════════════════════════════════════════════════
 -- WINDOW MANAGEMENT (splitting and navigation)
@@ -113,48 +115,77 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 -- ═══════════════════════════════════════════════════════════
 
 -- Keybinding to toggle explorer
-map("n", "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Explorer" })
+map("n", "<leader>e", function()
+	Snacks.explorer()
+end, { desc = "Toggle Explorer" })
 
 -- Files picker
-map("n", "<leader> ", function() Snacks.picker.files() end, { desc = "Find Files" })
+map("n", "<leader> ", function()
+	Snacks.picker.files()
+end, { desc = "Find Files" })
 
 -- Files picker
-map("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+map("n", "<leader>ff", function()
+	Snacks.picker.files()
+end, { desc = "Find Files" })
 
 -- Live grep (search in files)
-map("n", "<leader>fg", function() Snacks.picker.grep() end, { desc = "Live Grep" })
+map("n", "<leader>fg", function()
+	Snacks.picker.grep()
+end, { desc = "Live Grep" })
 
 -- Buffers picker
-map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Find Buffers" })
-map("n", "<leader>,", function() Snacks.picker.buffers() end, { desc = "Find Buffers" })
+map("n", "<leader>fb", function()
+	Snacks.picker.buffers()
+end, { desc = "Find Buffers" })
+map("n", "<leader>,", function()
+	Snacks.picker.buffers()
+end, { desc = "Find Buffers" })
 
 -- Recent files
-map("n", "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent Files" })
+map("n", "<leader>fr", function()
+	Snacks.picker.recent()
+end, { desc = "Recent Files" })
 
 -- Help tags
-map("n", "<leader>fh", function() Snacks.picker.help() end, { desc = "Help Tags" })
+map("n", "<leader>fh", function()
+	Snacks.picker.help()
+end, { desc = "Help Tags" })
 
 -- Git files
-map("n", "<leader>gf", function() Snacks.picker.git_files() end, { desc = "Git Files" })
+map("n", "<leader>gf", function()
+	Snacks.picker.git_files()
+end, { desc = "Git Files" })
 
 -- Colorschemes
-map("n", "<leader>fc", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
+map("n", "<leader>fc", function()
+	Snacks.picker.colorschemes()
+end, { desc = "Colorschemes" })
 
 -- Commands
-map("n", "<leader>fC", function() Snacks.picker.commands() end, { desc = "Commands" })
+map("n", "<leader>fC", function()
+	Snacks.picker.commands()
+end, { desc = "Commands" })
 
 -- Keymaps
-map("n", "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
+map("n", "<leader>fk", function()
+	Snacks.picker.keymaps()
+end, { desc = "Keymaps" })
 
 -- Highlights
-map("n", "<leader>fH", function() Snacks.picker.highlights() end, { desc = "Highlights" })
+map("n", "<leader>fH", function()
+	Snacks.picker.highlights()
+end, { desc = "Highlights" })
 
 -- Git branches
-map("n", "<leader>ga", function() Snacks.picker.git_branches({ layout = "select"}) end, { desc = "Git Branches" })
+map("n", "<leader>ga", function()
+	Snacks.picker.git_branches({ layout = "select" })
+end, { desc = "Git Branches" })
 
 -- Projects
-map("n", "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects" })
-
+map("n", "<leader>fp", function()
+	Snacks.picker.projects()
+end, { desc = "Projects" })
 
 -- ═══════════════════════════════════════════════════════════
 -- SMART TEXT EDITING
@@ -197,6 +228,9 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- Quit operations
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+
+-- Format file using LSP
+map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format File" })
 
 -- ═══════════════════════════════════════════════════════════
 -- DEVELOPMENT TOOLS
