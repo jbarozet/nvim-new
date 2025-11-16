@@ -1,0 +1,73 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
+    },
+    "codecompanion.nvim": {
+      "rev": "d661eab849214aa211b1f48463d2f6312ddd9165",
+      "src": "https://github.com/olimorris/codecompanion.nvim"
+    },
+    "copilot.vim": {
+      "rev": "da369d90cfd6c396b1d0ec259836a1c7222fb2ea",
+      "src": "https://github.com/github/copilot.vim"
+    },
+    "fzf-lua": {
+      "rev": "50e8ec7d90bf662b9856040d84a6ada925def652",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "gh-permalink.nvim": {
+      "rev": "9e337278ab5218d17b86f611c77be5fb5e6a263d",
+      "src": "https://github.com/vieitesss/gh-permalink.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "cdafc320f03f2572c40ab93a4eecb733d4016d07",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "3946f0122255bc377d14a59b27b609fb3ab25768",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "mason.nvim": {
+      "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mcphub.nvim": {
+      "rev": "8ff40b5edc649959bb7e89d25ae18e055554859a",
+      "src": "https://github.com/ravitemer/mcphub.nvim"
+    },
+    "miniharp.nvim": {
+      "rev": "29c50dd622e98e2fc5e12f71fba29e3fc34f1425",
+      "src": "https://github.com/vieitesss/miniharp.nvim"
+    },
+    "nvim": {
+      "rev": "da33755d00e09bff2473978910168ff9ea5dc453",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "836e07336ba523d4da480cd66f0241815393e98e",
+      "src": "https://github.com/folke/snacks.nvim"
+    },
+    "techbase.nvim": {
+      "rev": "3c908d83ca18d3b3f3cc108555e718aad10d3131",
+      "src": "https://github.com/mcauley-penney/techbase.nvim"
+    },
+    "vim-fugitive": {
+      "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vimtex": {
+      "rev": "32bcb3922c20588e00de68f73c86312eda2141ad",
+      "src": "https://github.com/lervag/vimtex"
+    },
+    "which-key.nvim": {
+      "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
+      "src": "https://github.com/folke/which-key.nvim"
+    }
+  }
+}
