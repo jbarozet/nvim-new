@@ -42,6 +42,7 @@ vim.diagnostic.config({
 		},
 	},
 	virtual_text = {
+    current_line = true, -- show virtual text only for current line
 		spacing = 4,
 		source = "if_many",
 		prefix = "●",
@@ -55,6 +56,11 @@ vim.diagnostic.config({
 	},
 })
 
+-- vim.diagnostic.config({ signs = true })
+-- vim.diagnostic.config({
+-- 	virtual_text = { current_line = true },
+-- })
+--
 -- diagnostic keymaps
 local diagnostic_goto = function(next, severity)
 	severity = severity and vim.diagnostic.severity[severity] or nil
