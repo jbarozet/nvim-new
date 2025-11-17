@@ -1,4 +1,6 @@
 vim.lsp.enable({
+	"pyright",
+	"ruff",
 	"bashls",
 	"gopls",
 	"lua_ls",
@@ -7,7 +9,6 @@ vim.lsp.enable({
 	"rust-analyzer",
 	"helm_ls",
 	"yamlls",
-	"pyright",
 })
 
 -- vim.diagnostic.config({ signs = true })

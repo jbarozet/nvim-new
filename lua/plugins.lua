@@ -2,39 +2,32 @@ vim.g.mapleader = " "
 
 local HOME = vim.fn.expand("~")
 local local_dev = "file://" .. HOME
-vim.pack.add({
-	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- pull LSP server configurations
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	-- { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
-	{ src = "https://github.com/folke/which-key.nvim" },
-	{ src = "https://github.com/folke/snacks.nvim" },
-	{ src = "https://github.com/mfussenegger/nvim-lint" },
-	{ src = "https://github.com/vieitesss/miniharp.nvim" },
-	{ src = "https://github.com/vieitesss/gh-permalink.nvim" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-	{ src = "https://github.com/tpope/vim-fugitive" },
-	{ src = "https://github.com/github/copilot.vim" },
-	{ src = "https://github.com/olimorris/codecompanion.nvim" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/ravitemer/mcphub.nvim" },
-	{ src = "https://github.com/akinsho/toggleterm.nvim" },
-	{ src = "https://github.com/lervag/vimtex" },
-})
-
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
 -- ═══════════════════════════════════════════════════════════
 -- COLOR SCHEME
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" } })
 vim.cmd.colorscheme("catppuccin")
+
+-- ═══════════════════════════════════════════════════════════
+-- PACKAGES
+-- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+})
+
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
 
 -- ═══════════════════════════════════════════════════════════
 -- LUALINE
 -- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
+})
 
 require("lualine").setup({
 	options = {
@@ -95,18 +88,36 @@ require("lualine").setup({
 -- WHICH KEY
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/folke/which-key.nvim" },
+})
 require("which-key").setup({})
 
 -- ═══════════════════════════════════════════════════════════
 -- MASON
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/mason-org/mason.nvim" },
+})
 require("mason").setup({})
+
+-- ═══════════════════════════════════════════════════════════
+-- NVIM-LSPCONFIG
+-- default configs for lsps
+-- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- pull LSP server configurations
+})
 
 -- ═══════════════════════════════════════════════════════════
 -- GITSIGNS
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+})
 require("gitsigns").setup({
 	signcolumn = true,
 	-- signs = {
@@ -122,23 +133,17 @@ require("gitsigns").setup({
 -- TREESITTER
 -- ═══════════════════════════════════════════════════════════
 
--- require('nvim-treesitter.configs').setup {
--- 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
--- 	ensure_installed = { "javascript", "typescript", "python", "c", "lua", "vim", "vimdoc", "query", "htmldjango", "gdscript", "godot_resource", "gdshader" },
--- 	sync_install = false,
--- 	auto_install = true,
--- 	ignore_install = {},
--- 	highlight = {
--- 		enable = true,
--- 		additional_vim_regex_highlighting = false,
--- 	},
--- }
---
+vim.pack.add({
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+})
 
 -- ═══════════════════════════════════════════════════════════
 -- BLINK
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+})
 require("blink.cmp").setup({
 	fuzzy = { implementation = "prefer_rust_with_warning" },
 	signature = { enabled = true },
@@ -185,6 +190,10 @@ require("blink.cmp").setup({
 -- SNACKS
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/folke/snacks.nvim" },
+})
+
 require("snacks").setup({
 	bigfile = { enabled = true },
 	dashboard = { enabled = false },
@@ -216,6 +225,9 @@ require("snacks").setup({
 -- LINTER
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/mfussenegger/nvim-lint" },
+})
 -- require("nvim-lint").setup({
 -- 	event = {
 -- 		"BufReadPre",
@@ -253,6 +265,11 @@ require("snacks").setup({
 -- CODE COMPANION
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/olimorris/codecompanion.nvim" },
+	{ src = "https://github.com/ravitemer/mcphub.nvim" },
+})
+
 require("codecompanion").setup({
 	extensions = {
 		mcphub = {
@@ -270,6 +287,9 @@ require("codecompanion").setup({
 -- TOGGLETERM
 -- ═══════════════════════════════════════════════════════════
 
+vim.pack.add({
+	{ src = "https://github.com/akinsho/toggleterm.nvim" },
+})
 require("toggleterm").setup({
 	version = "*",
 	config = false,
@@ -287,8 +307,29 @@ require("toggleterm").setup({
 })
 
 -- ═══════════════════════════════════════════════════════════
+-- VIM-FUGITIVE
+-- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/tpope/vim-fugitive" },
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- COPILOT
+-- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/github/copilot.vim" },
+})
+
+-- ═══════════════════════════════════════════════════════════
 -- VIMTEX
 -- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/lervag/vimtex" },
+})
+
 vim.g.vimtex_imaps_enabled = 0
 vim.g.vimtex_view_method = "skim"
 vim.g.latex_view_general_viewer = "skim"

@@ -187,6 +187,30 @@ map("n", "<leader>fp", function()
 	Snacks.picker.projects()
 end, { desc = "Projects" })
 
+--
+-- LSP Definitions and References
+--
+
+-- map("n", "gd", function()
+-- 	Snacks.picker.lsp_definitions()
+-- end, { desc = "Goto Definition" })
+--
+-- map("n", "gr", function()
+-- 	Snacks.picker.lsp_references()
+-- end, { desc = "References" })
+--
+-- map("n", "gI", function()
+-- 	Snacks.picker.lsp_implementations()
+-- end, { desc = "Goto Implementation" })
+--
+-- map("n", "gy", function()
+-- 	Snacks.picker.lsp_type_definitions()
+-- end, { desc = "Goto T[y]pe Definition" })
+
+-- map("n", "<leader>ss", function()
+-- 	Snacks.picker.lsp_symbols({ filter = LazyVim.config.kind_filter })
+-- end, { desc = "LSP Symbols", has = "documentSymbol" })
+
 -- ═══════════════════════════════════════════════════════════
 -- SMART TEXT EDITING
 -- ═══════════════════════════════════════════════════════════

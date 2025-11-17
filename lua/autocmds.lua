@@ -140,3 +140,43 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		vim.opt_local.filetype = "json"
 	end,
 })
+
+-- Setup keymaps when LSP attaches to a buffer
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf }
+
+		-- Go to definition (native)
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+
+		-- Find references with Snacks picker
+		vim.keymap.set("n", "gr", function()
+			Snacks.picker.lsp_references()
+		end, opts)
+
+		-- Document symbols with Snacks picker
+		vim.keymap.set("n", "<leader>ds", function()
+			Snacks.picker.lsp_symbols()
+		end, opts)
+
+		-- Workspace symbols with Snacks picker
+		vim.keymap.set("n", "<leader>ws", function()
+			Snacks.picker.lsp_workspace_symbols()
+		end, opts)
+
+		-- Diagnostics with Snacks picker
+		vim.keymap.set("n", "<leader>dd", function()
+			Snacks.picker.diagnostics()
+		end, opts)
+
+		-- Other LSP mappings
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "<leader>f", function()
+			vim.lsp.buf.format({ async = true })
+		end, opts)
+	end,
+})
