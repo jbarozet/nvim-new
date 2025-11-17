@@ -33,14 +33,14 @@ vim.diagnostic.config({
 		source = true,
 	},
 	-- keep signs & virtual text, but tune them as you like
-	signs = {
-		text = {
-			[sev.ERROR] = " ",
-			[sev.WARN] = " ",
-			[sev.INFO] = " ",
-			[sev.HINT] = "󰌵 ",
-		},
-	},
+	-- signs = {
+	-- 	text = {
+	-- 		[sev.ERROR] = " ",
+	-- 		[sev.WARN] = " ",
+	-- 		[sev.INFO] = " ",
+	-- 		[sev.HINT] = "󰌵 ",
+	-- 	},
+	-- },
 	virtual_text = {
     current_line = true, -- show virtual text only for current line
 		spacing = 4,

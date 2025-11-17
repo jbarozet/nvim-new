@@ -2,7 +2,7 @@ vim.lsp.enable({
 	"pyright",
 	"ruff",
 	"yamlls",
-  "terraform-lsp",
+  "terraform_lsp",
 	"bashls",
   "marksman",
 	"gopls",

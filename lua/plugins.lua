@@ -3,12 +3,14 @@ vim.g.mapleader = " "
 local HOME = vim.fn.expand("~")
 local local_dev = "file://" .. HOME
 
+
 -- ═══════════════════════════════════════════════════════════
 -- COLOR SCHEME
 -- ═══════════════════════════════════════════════════════════
 
 vim.pack.add({{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" } })
 vim.cmd.colorscheme("catppuccin")
+
 
 -- ═══════════════════════════════════════════════════════════
 -- PACKAGES
@@ -84,6 +86,7 @@ require("lualine").setup({
 	extensions = {},
 })
 
+
 -- ═══════════════════════════════════════════════════════════
 -- WHICH KEY
 -- ═══════════════════════════════════════════════════════════
@@ -93,14 +96,6 @@ vim.pack.add({
 })
 require("which-key").setup({})
 
--- ═══════════════════════════════════════════════════════════
--- MASON
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/mason-org/mason.nvim" },
-})
-require("mason").setup({})
 
 -- ═══════════════════════════════════════════════════════════
 -- NVIM-LSPCONFIG
@@ -110,6 +105,69 @@ require("mason").setup({})
 vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- pull LSP server configurations
 })
+
+
+-- ═══════════════════════════════════════════════════════════
+-- MASON
+-- ═══════════════════════════════════════════════════════════
+
+vim.pack.add({
+	{ src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+})
+
+require("mason").setup({
+  ensure_installed = {
+    "lua_ls"
+  }})
+
+require("mason-lspconfig").setup({
+    -- A list of servers to ensure are installed by Mason
+    ensure_installed = {
+        "pyright",
+        "ruff",
+        "yamlls",
+        "jsonls",
+        -- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp
+        "terraformls", -- Use this is you want HashiCorp's terraform-ls
+        "bashls",
+        "marksman",
+        "lua_ls",
+        "ts_ls",
+        "rust_analyzer",
+        -- Add any other LSP servers you want Mason to manage
+    },
+    -- This callback is called for each installed server
+    -- It allows you to add custom configurations for each LSP server
+    handlers = {
+        -- Default handler for most servers: just use their default setup
+        function(server_name)
+            require("lspconfig")[server_name].setup({})
+        end,
+        -- Example of a custom handler for a specific server (if needed)
+        -- ["lua_ls"] = function()
+        --     require("lspconfig").lua_ls.setup({
+        --         settings = {
+        --             Lua = {
+        --                 runtime = {
+        --                     version = "LuaJIT",
+        --                 },
+        --                 diagnostics = {
+        --                     globals = { "vim" },
+        --                 },
+        --                 workspace = {
+        --                     library = vim.api.nvim_get_runtime_file("", true),
+        --                 },
+        --                 telemetry = {
+        --                     enable = false,
+        --                 },
+        --             },
+        --         },
+        --     })
+        -- end,
+    },
+})
+
 
 -- ═══════════════════════════════════════════════════════════
 -- GITSIGNS
@@ -129,6 +187,7 @@ require("gitsigns").setup({
 	-- },
 })
 
+
 -- ═══════════════════════════════════════════════════════════
 -- TREESITTER
 -- ═══════════════════════════════════════════════════════════
@@ -136,6 +195,7 @@ require("gitsigns").setup({
 vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
+
 
 -- ═══════════════════════════════════════════════════════════
 -- BLINK
@@ -186,6 +246,7 @@ require("blink.cmp").setup({
 	sources = { default = { "lsp" } },
 })
 
+
 -- ═══════════════════════════════════════════════════════════
 -- SNACKS
 -- ═══════════════════════════════════════════════════════════
@@ -220,6 +281,7 @@ require("snacks").setup({
 		},
 	},
 })
+
 
 -- ═══════════════════════════════════════════════════════════
 -- LINTER
@@ -261,6 +323,7 @@ vim.pack.add({
 -- 	end,
 -- })
 
+
 -- ═══════════════════════════════════════════════════════════
 -- CODE COMPANION
 -- ═══════════════════════════════════════════════════════════
@@ -282,6 +345,7 @@ require("codecompanion").setup({
 		},
 	},
 })
+
 
 -- ═══════════════════════════════════════════════════════════
 -- TOGGLETERM
@@ -306,6 +370,7 @@ require("toggleterm").setup({
 	},
 })
 
+
 -- ═══════════════════════════════════════════════════════════
 -- VIM-FUGITIVE
 -- ═══════════════════════════════════════════════════════════
@@ -313,6 +378,7 @@ require("toggleterm").setup({
 vim.pack.add({
 	{ src = "https://github.com/tpope/vim-fugitive" },
 })
+
 
 -- ═══════════════════════════════════════════════════════════
 -- COPILOT
@@ -322,23 +388,3 @@ vim.pack.add({
 	{ src = "https://github.com/github/copilot.vim" },
 })
 
--- ═══════════════════════════════════════════════════════════
--- VIMTEX
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/lervag/vimtex" },
-})
-
-vim.g.vimtex_imaps_enabled = 0
-vim.g.vimtex_view_method = "skim"
-vim.g.latex_view_general_viewer = "skim"
-vim.g.latex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
-vim.g.vimtex_compiler_method = "latexmk"
-vim.g.vimtex_quickfix_open_on_warning = 0
-vim.g.vimtex_quickfix_ignore_filters = {
-	"Underfull",
-	"Overfull",
-	"LaTeX Warning: .\\+ float specifier changed to",
-	"Package hyperref Warning: Token not allowed in a PDF string",
-}
