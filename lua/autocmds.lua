@@ -183,7 +183,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Diagnostics with Snacks picker
 		vim.keymap.set("n", "<leader>dd", function()
 			Snacks.picker.diagnostics()
-		end, opts)
+		end, { desc = "Show diagnostics" }, opts)
 
 		-- Other LSP mappings
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
