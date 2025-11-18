@@ -17,15 +17,33 @@ vim.pack.add {
 
 -- ═══════════════════════════════════════════════════════════
 -- 2. Setup Mason
+--
+-- Core package manager
+-- for LSP servers, formatters, linters, etc.
+-- to browse and install tools
+-- Handles downloading, installing, and updating tools
 -- ═══════════════════════════════════════════════════════════
 
 require("mason").setup()
 
 -- ═══════════════════════════════════════════════════════════
 -- 3: Configure LSP servers
+--
+-- Bridge between mason.nvim and nvim-lspconfig
+-- Automatically configures LSP servers installed via Mason
+-- Automatically enaables LSP servers in lspconfig
+-- Maps Mason package names to lspconfig server names
+-- If mason-tool-installer is not used, add `ensure_installed`
 -- ═══════════════════════════════════════════════════════════
 
 require('mason-lspconfig').setup()
+
+-- ═══════════════════════════════════════════════════════════
+-- 4: Configure LSP servers
+--
+-- Auto-installs ANY Mason tool (LSPs, formatters, linters, DAPs)
+-- Works with **all** Mason packages, not just LSP servers
+-- ═══════════════════════════════════════════════════════════
 
 require('mason-tool-installer').setup({
 	ensure_installed = {
