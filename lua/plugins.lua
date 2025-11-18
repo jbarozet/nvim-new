@@ -1,90 +1,3 @@
-vim.g.mapleader = " "
-
-local HOME = vim.fn.expand("~")
-local local_dev = "file://" .. HOME
-
-
--- ═══════════════════════════════════════════════════════════
--- COLOR SCHEME
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" } })
-vim.cmd.colorscheme("catppuccin")
-
-
--- ═══════════════════════════════════════════════════════════
--- PACKAGES
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-})
-
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
-
-
--- ═══════════════════════════════════════════════════════════
--- LUALINE
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-})
-
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		always_show_tabline = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				"WinEnter",
-				"BufEnter",
-				"BufWritePost",
-				"SessionLoadPost",
-				"FileChangedShellPost",
-				"VimResized",
-				"Filetype",
-				"CursorMoved",
-				"CursorMovedI",
-				"ModeChanged",
-			},
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-})
 
 
 -- ═══════════════════════════════════════════════════════════
@@ -95,79 +8,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/which-key.nvim" },
 })
 require("which-key").setup({})
-
-
--- ═══════════════════════════════════════════════════════════
--- NVIM-LSPCONFIG
--- default configs for lsps
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- pull LSP server configurations
-})
-
-
--- ═══════════════════════════════════════════════════════════
--- MASON
--- ═══════════════════════════════════════════════════════════
-
-vim.pack.add({
-	{ src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-})
-
-require("mason").setup({
-  ensure_installed = {
-    "lua_ls"
-  }})
-
-require("mason-lspconfig").setup({
-    -- A list of servers to ensure are installed by Mason
-    ensure_installed = {
-        "pyright",
-        "ruff",
-        "yamlls",
-        "jsonls",
-        -- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp
-        "terraformls", -- Use this is you want HashiCorp's terraform-ls
-        "bashls",
-        "marksman",
-        "lua_ls",
-        "ts_ls",
-        "rust_analyzer",
-        -- Add any other LSP servers you want Mason to manage
-    },
-    -- This callback is called for each installed server
-    -- It allows you to add custom configurations for each LSP server
-    handlers = {
-        -- Default handler for most servers: just use their default setup
-        function(server_name)
-            require("lspconfig")[server_name].setup({})
-        end,
-        -- Example of a custom handler for a specific server (if needed)
-        -- ["lua_ls"] = function()
-        --     require("lspconfig").lua_ls.setup({
-        --         settings = {
-        --             Lua = {
-        --                 runtime = {
-        --                     version = "LuaJIT",
-        --                 },
-        --                 diagnostics = {
-        --                     globals = { "vim" },
-        --                 },
-        --                 workspace = {
-        --                     library = vim.api.nvim_get_runtime_file("", true),
-        --                 },
-        --                 telemetry = {
-        --                     enable = false,
-        --                 },
-        --             },
-        --         },
-        --     })
-        -- end,
-    },
-})
-
 
 -- ═══════════════════════════════════════════════════════════
 -- GITSIGNS
@@ -187,7 +27,6 @@ require("gitsigns").setup({
 	-- },
 })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- TREESITTER
 -- ═══════════════════════════════════════════════════════════
@@ -195,7 +34,6 @@ require("gitsigns").setup({
 vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
-
 
 -- ═══════════════════════════════════════════════════════════
 -- BLINK
@@ -246,7 +84,6 @@ require("blink.cmp").setup({
 	sources = { default = { "lsp" } },
 })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- SNACKS
 -- ═══════════════════════════════════════════════════════════
@@ -281,7 +118,6 @@ require("snacks").setup({
 		},
 	},
 })
-
 
 -- ═══════════════════════════════════════════════════════════
 -- LINTER
@@ -323,7 +159,6 @@ vim.pack.add({
 -- 	end,
 -- })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- CODE COMPANION
 -- ═══════════════════════════════════════════════════════════
@@ -345,7 +180,6 @@ require("codecompanion").setup({
 		},
 	},
 })
-
 
 -- ═══════════════════════════════════════════════════════════
 -- TOGGLETERM
@@ -370,7 +204,6 @@ require("toggleterm").setup({
 	},
 })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- VIM-FUGITIVE
 -- ═══════════════════════════════════════════════════════════
@@ -379,7 +212,6 @@ vim.pack.add({
 	{ src = "https://github.com/tpope/vim-fugitive" },
 })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- COPILOT
 -- ═══════════════════════════════════════════════════════════
@@ -387,4 +219,3 @@ vim.pack.add({
 vim.pack.add({
 	{ src = "https://github.com/github/copilot.vim" },
 })
-
