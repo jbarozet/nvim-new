@@ -49,7 +49,7 @@ require("blink.cmp").setup({
 		preset = "default",
 		["<C-space>"] = {},
 		["<C-p>"] = {},
-		["<Tab>"] = {},
+		["<Tab>"] = { "select_and_accept" },
 		["<S-Tab>"] = {},
 		["<C-y>"] = { "show", "show_documentation", "hide_documentation" },
 		["<C-n>"] = { "select_and_accept" },
@@ -81,7 +81,7 @@ require("blink.cmp").setup({
 		},
 	},
 
-	sources = { default = { "lsp" } },
+	sources = { default = { "lsp", "path" } },
 })
 
 -- ═══════════════════════════════════════════════════════════
