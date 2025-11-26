@@ -192,6 +192,11 @@ map("n", "<leader>cl", function()
 	Snacks.picker.lsp_config()
 end, { desc = "LSP Info" })
 
+map("n", "<leader>cg", function()
+	Snacks.lazygit()
+end, { desc = "LazyGit" })
+
+
 -- ═══════════════════════════════════════════════════════════
 -- SMART TEXT EDITING
 -- ═══════════════════════════════════════════════════════════

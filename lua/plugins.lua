@@ -145,6 +145,7 @@ vim.pack.add({
 require("snacks").setup({
 	bigfile = { enabled = true },
 	dashboard = { enabled = false },
+  lazygit = { enabled = true },
 	explorer = {
 		enabled = true,
 		width = 30, -- width of the explorer window
