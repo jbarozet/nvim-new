@@ -1,8 +1,6 @@
 # Neovim 0.12 Configuration
 
-Based on nightly build (0.12).
-
-Visit [Neovin Installation](https://github.com/neovim/neovim/blob/master/INSTALL.md).
+Visit [Neovim Installation](https://github.com/neovim/neovim/blob/master/INSTALL.md).
 
 ## Neovim 0.5
 
@@ -26,7 +24,7 @@ Visit [Neovin Installation](https://github.com/neovim/neovim/blob/master/INSTALL
 
 - Native Keymaps: Neovim 0.11 also introduces new native keymaps for common LSP functionalities
 
-# Neovim 0.12
+## Neovim 0.12
 
 Neovim 0.12 will introduce a significant new feature: a **built-in plugin manager** under `vim.pack`.
 
@@ -37,3 +35,8 @@ It's generally considered a more minimal solution compared to feature-rich exter
 Also Neovim 0.12 continues to mature its native Language Server Protocol (LSP) client, building upon the foundational work of 0.5 and the significant enhancements in 0.11. The focus in 0.12 is on further streamlining the LSP experience, adding new capabilities, and refining existing functionalities.
 
 This configuration is based on the **new integrated package manager**.
+
+Update packages with: `:lua vim.pack.update({})`
+
+
+
