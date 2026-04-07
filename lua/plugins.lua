@@ -27,14 +27,17 @@ require("gitsigns").setup({
 
 -- ═══════════════════════════════════════════════════════════
 -- TREESITTER
+-- Ensure to switch to the main branch of treesitter-nvim
+-- (main is more up to date than master). 
 -- ═══════════════════════════════════════════════════════════
 
 vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main' },
 })
 
 -- ═══════════════════════════════════════════════════════════
 -- BLINK
+-- Auto-completion
 -- ═══════════════════════════════════════════════════════════
 
 vim.pack.add({
@@ -65,7 +68,7 @@ require("blink.cmp").setup({
 	sources = {
 		-- adding any nvim-cmp sources here will enable them
 		-- with blink.compat
-		compat = {},
+		-- compat = {},
 		default = { "lsp", "path", "snippets", "buffer" },
 	},
 	cmdline = {
