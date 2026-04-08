@@ -173,24 +173,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Document symbols with Snacks picker
 		vim.keymap.set("n", "<leader>ds", function()
 			Snacks.picker.lsp_symbols()
-		end, { desc = "Show symbols"})
+		end, { buffer = ev.buf, desc = "Show symbols" })
 
 		-- Workspace symbols with Snacks picker
 		vim.keymap.set("n", "<leader>ws", function()
 			Snacks.picker.lsp_workspace_symbols()
-		end,  { desc = "Show Workspace symbols"})
+		end, { buffer = ev.buf, desc = "Show Workspace symbols" })
 
 		-- Diagnostics with Snacks picker
 		vim.keymap.set("n", "<leader>dd", function()
 			Snacks.picker.diagnostics()
-		end, { desc = "Show diagnostics" })
+		end, { buffer = ev.buf, desc = "Show diagnostics" })
 
 		-- Other LSP mappings
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-		vim.keymap.set("n", "<leader>f", function()
-			vim.lsp.buf.format({ async = true })
-		end, opts)
 	end,
 })
