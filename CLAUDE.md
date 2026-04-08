@@ -47,7 +47,6 @@ possible, minimizing reliance on third-party abstractions.
 | snacks.nvim | File explorer, picker (replaces telescope), notifier, lazygit, indent guides, scroll, scope, statuscolumn |
 | nvim-lint | Linter runner (installed but not yet configured) |
 | toggleterm | Floating terminal (`<C-]>`) |
-| vim-fugitive | Git integration |
 | copilot.vim | GitHub Copilot inline suggestions |
 | mason + mason-lspconfig + mason-tool-installer | LSP server / tool installation |
 | nvim-lspconfig | Server definition reference (used by mason-lspconfig) |
