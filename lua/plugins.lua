@@ -243,8 +243,6 @@ vim.pack.add({
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 })
 require("toggleterm").setup({
-	version = "*",
-	config = false,
 	direction = "float",
 	open_mapping = [[<c-]>]],
 	close_on_exit = true,

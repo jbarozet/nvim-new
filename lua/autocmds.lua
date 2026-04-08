@@ -108,9 +108,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 -- Set filetype for .env and .env.* files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	group = augroup("env_filetype"),
-	pattern = { "*.env", ".env.*" },
-	callback = function()
-		vim.opt_local.filetype = "sh"
+	pattern = { "*.env", ".env", ".env.*" },
+	callback = function(ev)
+		vim.bo[ev.buf].filetype = "sh"
 	end,
 })
 
@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, opts)
 
 		-- Find type definitions with Snacks picker
-		vim.keymap.set("n", "gI", function()
+		vim.keymap.set("n", "gt", function()
 			Snacks.picker.lsp_type_definitions()
 		end, opts)
 
