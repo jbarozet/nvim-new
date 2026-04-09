@@ -1,6 +1,16 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+
+-- ═══════════════════════════════════════════════════════════
+-- VIM.PACK KEYMAPS 
+-- ═══════════════════════════════════════════════════════════
+
+vim.keymap.set("n", "<leader>pu", function() vim.pack.update() end, { desc = "vimpack update - code action to skip some" })
+vim.keymap.set("n", "<leader>pr", function() vim.pack.update(nil, { target = "lockfile", force = true }) end, { desc = "vimpack to lockfile versions" })
+vim.keymap.set("n", "<leader>pi", function() vim.pack.update(nil, { offline = true }) end, { desc = "vimpack info" })
+
+
 -- ═══════════════════════════════════════════════════════════
 -- BUFFER NAVIGATION (think browser tabs)
 -- ═══════════════════════════════════════════════════════════

@@ -148,27 +148,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local opts = { buffer = ev.buf }
 
-		-- Go to definition (native)
-		-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 		-- Go to definition (Snacks picker)
 		vim.keymap.set("n", "gd", function()
 			Snacks.picker.lsp_definitions()
-		end, opts)
+		end, { buffer = ev.buf, desc = "Show definition" })
 
 		-- Find references with Snacks picker
 		vim.keymap.set("n", "gr", function()
 			Snacks.picker.lsp_references()
-		end, opts)
+		end, { buffer = ev.buf, desc = "Show references" })
 
 		-- Find implementations with Snacks picker
 		vim.keymap.set("n", "gI", function()
 			Snacks.picker.lsp_implementations()
-		end, opts)
+		end, { buffer = ev.buf, desc = "Show implementations" })
 
 		-- Find type definitions with Snacks picker
 		vim.keymap.set("n", "gt", function()
 			Snacks.picker.lsp_type_definitions()
-		end, opts)
+		end, { buffer = ev.buf, desc = "Show type definitions" })
 
 		-- Document symbols with Snacks picker
 		vim.keymap.set("n", "<leader>ds", function()
