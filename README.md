@@ -22,7 +22,7 @@ LSPs are enabled via `vim.lsp.enable()` in `lua/lsp.lua`; and configurations are
 
 - `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
 
-LSP ccnfigurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp).
+LSP configurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp).
 
 Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
 
