@@ -2,6 +2,17 @@
 
 Neovim 0.12 introduces a significant new feature: a **built-in plugin manager** under `vim.pack`.
 
+On Linux/macOS, the configuration directory for nvim is located at ~/.config/nvim.
+It’s also called the runtimepath, the nvim will read ~/.config/nvim/init.lua when it starts up.
+
+Neovim's runtime system automatically sources every .lua file found in a plugin/ directory that lives anywhere on the runtimepath.
+My config root (~/.config/nvim) is always on the runtimepath, so ~/.config/nvim/plugin/*.lua gets sourced at startup without any manual wiring.
+
+The load order is:
+  1. init.lua runs first (loading options, keymaps, lsp)
+  2. Neovim then automatically sources all files under plugin/ after init.lua completes
+
+
 ## LSP
 
 

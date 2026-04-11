@@ -2,170 +2,84 @@
 -- LSP CONFIGURATION
 -- ═══════════════════════════════════════════════════════════
 
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+-- Setup keymaps when LSP attaches to a buffer
+-- (blink capabilities are wired in plugin/blink.cmp.lua)
 
--- ═══════════════════════════════════════════════════════════
--- 1. Install  LSP-related packages
--- ═══════════════════════════════════════════════════════════
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf }
 
-vim.pack.add {
-	{ src = 'https://github.com/neovim/nvim-lspconfig' },
-	{ src = 'https://github.com/mason-org/mason.nvim' },
-	{ src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
-	{ src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
-}
+		-- Go to definition (Snacks picker)
+		vim.keymap.set("n", "gd", function()
+			Snacks.picker.lsp_definitions()
+		end, { buffer = ev.buf, desc = "Show definition" })
 
--- ═══════════════════════════════════════════════════════════
--- 2. BLINK
--- Auto-completion
--- ═══════════════════════════════════════════════════════════
+		-- Find references with Snacks picker
+		vim.keymap.set("n", "gr", function()
+			Snacks.picker.lsp_references()
+		end, { buffer = ev.buf, desc = "Show references" })
 
-vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+		-- Find implementations with Snacks picker
+		vim.keymap.set("n", "gI", function()
+			Snacks.picker.lsp_implementations()
+		end, { buffer = ev.buf, desc = "Show implementations" })
+
+		-- Find type definitions with Snacks picker
+		vim.keymap.set("n", "gt", function()
+			Snacks.picker.lsp_type_definitions()
+		end, { buffer = ev.buf, desc = "Show type definitions" })
+
+		-- Document symbols with Snacks picker
+		vim.keymap.set("n", "<leader>ds", function()
+			Snacks.picker.lsp_symbols()
+		end, { buffer = ev.buf, desc = "Show symbols" })
+
+		-- Workspace symbols with Snacks picker
+		vim.keymap.set("n", "<leader>ws", function()
+			Snacks.picker.lsp_workspace_symbols()
+		end, { buffer = ev.buf, desc = "Show Workspace symbols" })
+
+		-- Diagnostics with Snacks picker
+		vim.keymap.set("n", "<leader>dd", function()
+			Snacks.picker.diagnostics()
+		end, { buffer = ev.buf, desc = "Show diagnostics" })
+
+		-- Other LSP mappings
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+	end,
 })
 
-require("blink.cmp").setup({
-  fuzzy = { implementation = "lua" },
-  completion = {
-    accept = {
-      -- experimental auto-brackets support
-      auto_brackets = {
-        enabled = true,
-      },
-    },
-    menu = {
-      draw = {
-        treesitter = { "lsp" },
-      },
-    },
-    documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 200,
-    },
-    ghost_text = {
-      enabled = vim.g.ai_cmp,
-    },
-  },
-	sources = {
-		-- adding any nvim-cmp sources here will enable them
-		-- with blink.compat
-		-- compat = {},
-		default = { "lsp", "path", "snippets", "buffer" },
-	},
-	cmdline = {
-		enabled = true,
-		keymap = {
-			preset = "cmdline",
-			["<Right>"] = false,
-			["<Left>"] = false,
-		},
-		completion = {
-			list = { selection = { preselect = false } },
-			menu = {
-				auto_show = function(ctx)
-					return vim.fn.getcmdtype() == ":"
-				end,
-			},
-			ghost_text = { enabled = true },
-		},
-	},
-
-	keymap = {
-		preset = "enter",
-		["<C-y>"] = { "select_and_accept" },
-	},
+vim.lsp.enable({
+	"pyright",
+	"yamlls",
+	"jsonls",
+	"terraformls",
+	"bashls",
+	"marksman",
+	"lua_ls",
+	"ruff",
 })
 
--- ═══════════════════════════════════════════════════════════
--- Pass blink.cmp capabilities to all LSP servers
---
--- Tells LSP servers that the client supports snippets, resolve,
--- and other blink.cmp features. Must be set before mason-lspconfig
--- calls vim.lsp.enable() via automatic_enable.
--- ═══════════════════════════════════════════════════════════
-
-vim.lsp.config('*', {
-	capabilities = require('blink.cmp').get_lsp_capabilities(),
-})
-
--- ═══════════════════════════════════════════════════════════
--- 3. Per-server LSP configuration
---
--- Call vim.lsp.config() for individual servers before
--- mason-lspconfig runs automatic_enable, so configs are in
--- place when the server first starts.
--- ═══════════════════════════════════════════════════════════
-
-vim.lsp.config('lua_ls', {
-	settings = {
-		Lua = {
-			runtime = {
-				version = 'LuaJIT',
-			},
-			diagnostics = {
-				globals = {
-					'vim',
-					'require'
-				},
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-})
-
--- ═══════════════════════════════════════════════════════════
--- 4. Setup Mason
---
--- Core package manager
--- for LSP servers, formatters, linters, etc.
--- to browse and install tools
--- Handles downloading, installing, and updating tools
--- ═══════════════════════════════════════════════════════════
-
-require("mason").setup()
-
--- ═══════════════════════════════════════════════════════════
--- 5: Configure LSP servers
---
--- Bridge between mason.nvim and nvim-lspconfig
--- Automatically configures LSP servers installed via Mason
--- Automatically enables LSP servers in lspconfig
--- Maps Mason package names to lspconfig server names
--- If mason-tool-installer is not used, add `ensure_installed`
--- ═══════════════════════════════════════════════════════════
-
-require('mason-lspconfig').setup()
-
--- ═══════════════════════════════════════════════════════════
--- 6: Auto-install Mason tools
---
--- Auto-installs ANY Mason tool (LSPs, formatters, linters, DAPs)
--- Works with **all** Mason packages, not just LSP servers
--- ═══════════════════════════════════════════════════════════
-
-require('mason-tool-installer').setup({
-	ensure_installed = {
-		"pyright", -- python lsp
-		"yamlls",
-		"jsonls",
-		-- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp (seems there are some issues with it)
-		"terraformls", -- Use this is you want HashiCorp's terraform-ls
-		"bashls",
-		"marksman", -- makrdown lsp
-		"lua_ls",
-		"ts_ls",
-		"rust_analyzer",
-		-- Add any other LSP servers you want Mason to manage
-		-- Formatters
-		"prettier",
-		"stylua",
-		-- Linters
-		"ruff", -- Python linter (and formatter)
-	}
-})
-
+-- require("mason-tool-installer").setup({
+-- 	ensure_installed = {
+-- 		"pyright", -- python lsp
+-- 		"yamlls",
+-- 		"jsonls",
+-- 		-- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp (seems there are some issues with it)
+-- 		"terraformls", -- Use this is you want HashiCorp's terraform-ls
+-- 		"bashls",
+-- 		"marksman", -- makrdown lsp
+-- 		"lua_ls",
+-- 		"ts_ls",
+-- 		"rust_analyzer",
+-- 		-- Add any other LSP servers you want Mason to manage
+-- 		-- Formatters
+-- 		"prettier",
+-- 		"stylua",
+-- 		-- Linters
+-- 		"ruff", -- Python linter (and formatter)
+-- 	},
+-- })

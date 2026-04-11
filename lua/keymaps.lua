@@ -100,7 +100,6 @@ map("n", "<A-h>", "^", { desc = "Go to start of line", silent = true })
 map("n", "<A-l>", "$", { desc = "Go to end of line", silent = true })
 
 -- Select all content
-map("n", "==", "gg<S-v>G")
 map("n", "<A-a>", "ggVG", { noremap = true, silent = true, desc = "Select all" })
 
 -- Clear search highlighting
@@ -226,15 +225,6 @@ map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
 
--- Auto-close pairs (simple, no plugin needed)
-map("i", "`", "``<left>")
-map("i", '"', '""<left>')
-map("i", "(", "()<left>")
-map("i", "[", "[]<left>")
-map("i", "{", "{}<left>")
-map("i", "<", "<><left>")
--- Note: Single quotes commented out to avoid conflicts in some contexts
--- map("i", "'", "''<left>")
 
 -- ═══════════════════════════════════════════════════════════
 -- FILE OPERATIONS

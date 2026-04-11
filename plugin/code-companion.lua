@@ -1,0 +1,21 @@
+-- ═══════════════════════════════════════════════════════════
+-- CODE COMPANION
+-- ═══════════════════════════════════════════════════════════
+
+-- vim.pack.add({
+-- 	{ src = "https://github.com/olimorris/codecompanion.nvim" },
+-- 	{ src = "https://github.com/ravitemer/mcphub.nvim" },
+-- })
+--
+-- require("codecompanion").setup({
+-- 	extensions = {
+-- 		mcphub = {
+-- 			callback = "mcphub.extensions.codecompanion",
+-- 			opts = {
+-- 				make_vars = true,
+-- 				make_slash_commands = true,
+-- 				show_result_in_chat = true,
+-- 			},
+-- 		},
+-- 	},
+-- })

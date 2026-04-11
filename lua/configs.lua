@@ -55,7 +55,6 @@ opt.autoread = true -- Auto reload files changed outside vim
 opt.autowrite = true -- Auto save
 
 -- Behavior settings
-opt.hidden = true -- Allow hidden buffers
 opt.errorbells = false -- No error bells
 opt.backspace = "indent,eol,start" -- Better backspace behavior
 opt.autochdir = false -- Don't auto change directory
@@ -100,7 +99,6 @@ if vim.fn.isdirectory(undodir) == 0 then
 end
 
 vim.g.autoformat = true
-vim.g.trouble_lualine = true
 
 -- opt.fillchars = {
 -- 	foldopen = "",
@@ -113,7 +111,6 @@ vim.g.trouble_lualine = true
 
 opt.jumpoptions = "view"
 opt.laststatus = 3 -- global statusline
-opt.list = false
 opt.linebreak = true -- Wrap lines at convenient points
 opt.list = true -- Show some invisible characters (tabs...
 opt.shiftround = true -- Round indent
@@ -127,3 +124,15 @@ vim.filetype.add({
 		["[jt]sconfig.*.json"] = "jsonc",
 	},
 })
+
+
+-- ═══════════════════════════════════════════════════════════
+--  Leader Key
+-- ═══════════════════════════════════════════════════════════
+vim.g.mapleader = " "
+
+-- ═══════════════════════════════════════════════════════════
+-- New UI opt-in
+-- ═══════════════════════════════════════════════════════════
+
+require('vim._core.ui2').enable({})
