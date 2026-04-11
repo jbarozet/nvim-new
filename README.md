@@ -18,20 +18,15 @@ The load order is:
 Since the release of Neovim v0.11, the `vim.lsp.config` and `vim.lsp.enable` are available for configuring LSP without downloading [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 However, I use a third-party plugin called `mason.nvim`. This plugin is an LSP registry, that is, you can download any LSP you want easily.
 
-LSPs are enabled via `vim.lsp.enable()` in `lua/lsp.lua`; configurations are in `lsp/`:
+LSPs are enabled via `vim.lsp.enable()` in `lua/lsp.lua`; and configurations are in `lsp/`:
 
 - `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
+
+LSP ccnfigurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp).
 
 Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
 
 - Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
-
-There exist two ways to set up a LSP:
-
-1. We could use `vim.lsp.config.<lsp> = { ... }` to configure a specific LSP.
-2. Creating an `lsp` folder in `runtimepath` (`~/.config/nvim` creating a file for each LSP under the `lsp` folder.
-
-LSP ccnfigurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp) and saved in `lsp` folder.
 
 ## Git integration
 
