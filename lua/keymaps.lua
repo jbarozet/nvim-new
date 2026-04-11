@@ -1,15 +1,19 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-
 -- ═══════════════════════════════════════════════════════════
--- VIM.PACK KEYMAPS 
+-- VIM.PACK KEYMAPS
 -- ═══════════════════════════════════════════════════════════
 
-vim.keymap.set("n", "<leader>pu", function() vim.pack.update() end, { desc = "vimpack update - code action to skip some" })
-vim.keymap.set("n", "<leader>pr", function() vim.pack.update(nil, { target = "lockfile", force = true }) end, { desc = "vimpack to lockfile versions" })
-vim.keymap.set("n", "<leader>pi", function() vim.pack.update(nil, { offline = true }) end, { desc = "vimpack info" })
-
+vim.keymap.set("n", "<leader>pu", function()
+	vim.pack.update()
+end, { desc = "vimpack update - code action to skip some" })
+vim.keymap.set("n", "<leader>pr", function()
+	vim.pack.update(nil, { target = "lockfile", force = true })
+end, { desc = "vimpack to lockfile versions" })
+vim.keymap.set("n", "<leader>pi", function()
+	vim.pack.update(nil, { offline = true })
+end, { desc = "vimpack info" })
 
 -- ═══════════════════════════════════════════════════════════
 -- BUFFER NAVIGATION (think browser tabs)
@@ -205,7 +209,6 @@ map("n", "<leader>cg", function()
 	Snacks.lazygit()
 end, { desc = "LazyGit" })
 
-
 -- ═══════════════════════════════════════════════════════════
 -- SMART TEXT EDITING
 -- ═══════════════════════════════════════════════════════════
@@ -225,7 +228,6 @@ map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
 
-
 -- ═══════════════════════════════════════════════════════════
 -- FILE OPERATIONS
 -- ═══════════════════════════════════════════════════════════
@@ -239,7 +241,7 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- Quit operations
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
--- Format file using LSP
+-- Format file using conform with LSP fallback
 map("n", "<leader>cf", function()
 	require("conform").format({ lsp_fallback = true })
 end, { desc = "Format File" })
