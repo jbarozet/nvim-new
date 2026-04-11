@@ -46,6 +46,7 @@ Neovim's own runtime conventions so the editor does the heavy lifting.
 | `plugin/treesitter.lua` | nvim-treesitter (`main` branch) | Syntax / folding / highlighting |
 | `plugin/blink.cmp.lua` | blink.cmp | Autocompletion; also wires `vim.lsp.config('*', capabilities)` |
 | `plugin/snacks.lua` | snacks.nvim | Explorer, picker, notifier, lazygit, indent, scroll, scope, statuscolumn |
+| `plugin/conform.lua` | conform.nvim | Formatter runner (prettier, stylua, ruff_format); `<leader>cf` and format-on-save |
 | `plugin/nvim-linter.lua` | nvim-lint | Linter runner (installed, setup not yet configured) |
 | `plugin/toggleterm.lua` | toggleterm | Floating terminal |
 | `plugin/copilot.lua` | copilot.vim | GitHub Copilot inline suggestions |
@@ -58,7 +59,8 @@ Enabled via `vim.lsp.enable()` in `lua/lsp.lua`; configs in `lsp/`:
 
 `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
 
-Formatters managed by Mason (not LSP servers): `prettier`, `stylua`
+Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
+Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
 
 `lsp/terraform_lsp.lua` is kept as a reference for the alternative
 `juliosueiras/terraform-lsp` server but is not enabled.

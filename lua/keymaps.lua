@@ -240,7 +240,9 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- Format file using LSP
-map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format File" })
+map("n", "<leader>cf", function()
+	require("conform").format({ lsp_fallback = true })
+end, { desc = "Format File" })
 
 -- ═══════════════════════════════════════════════════════════
 -- DEVELOPMENT TOOLS
