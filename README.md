@@ -6,27 +6,32 @@ On Linux/macOS, the configuration directory for nvim is located at ~/.config/nvi
 It’s also called the runtimepath, the nvim will read ~/.config/nvim/init.lua when it starts up.
 
 Neovim's runtime system automatically sources every .lua file found in a plugin/ directory that lives anywhere on the runtimepath.
-My config root (~/.config/nvim) is always on the runtimepath, so ~/.config/nvim/plugin/*.lua gets sourced at startup without any manual wiring.
+My config root (~/.config/nvim) is always on the runtimepath, so ~/.config/nvim/plugin/\*.lua gets sourced at startup without any manual wiring.
 
 The load order is:
-  1. init.lua runs first (loading options, keymaps, lsp)
-  2. Neovim then automatically sources all files under plugin/ after init.lua completes
 
+1. init.lua runs first (loading options, keymaps, lsp)
+2. Neovim then automatically sources all files under plugin/ after init.lua completes
 
 ## LSP
 
-
 Since the release of Neovim v0.11, the `vim.lsp.config` and `vim.lsp.enable` are available for configuring LSP without downloading [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
-However, we _may_ need a third-party plugin called `mason.nvim`. This plugin is an LSP registry, that is, you can download any LSP you want easily.
+However, I use a third-party plugin called `mason.nvim`. This plugin is an LSP registry, that is, you can download any LSP you want easily.
 
-There exist two ways to set up a an LSP
+LSPs are enabled via `vim.lsp.enable()` in `lua/lsp.lua`; configurations are in `lsp/`:
 
-1. We could use  `vim.lsp.config.<lsp> = { ... }` to configure a specific LSP.
-2. Creating an `lsp` folder in `runtimepath` (`~/.config/nvim` creating a file for each LSP under the `lsp` folder. 
+- `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
 
-This repo still uses nvim-lspconfig, but considering removing it.
+Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
 
-All LSP configurations are located here: https://github.com/neovim/nvim-lspconfig/tree/master/lsp
+- Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
+
+There exist two ways to set up a LSP:
+
+1. We could use `vim.lsp.config.<lsp> = { ... }` to configure a specific LSP.
+2. Creating an `lsp` folder in `runtimepath` (`~/.config/nvim` creating a file for each LSP under the `lsp` folder.
+
+LSP ccnfigurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp) and saved in `lsp` folder.
 
 ## Git integration
 
@@ -36,6 +41,8 @@ gitsigns — inline, buffer-focused
 - Hunk navigation (]h/[h) and hunk actions (stage, reset, preview a hunk)
 - Blame annotations inline
 - Everything operates on the current file's hunks
+
+lazygit
 
 vim-fugitive — full Git workflow (removed because I use lazygit)
 
