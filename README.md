@@ -15,18 +15,12 @@ The load order is:
 
 ## LSP
 
-Since the release of Neovim v0.11, the `vim.lsp.config` and `vim.lsp.enable` are available for configuring LSP without downloading [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
-However, I use a third-party plugin called `mason.nvim`. This plugin is an LSP registry, that is, you can download any LSP you want easily.
+Since Neovim v0.11, vim.lsp.config and vim.lsp.enable allow configuring LSP servers natively without any third-party plugin. However, I use a small stack on top to automate tool installation:
 
-LSPs are enabled via `vim.lsp.enable()` in `lua/lsp.lua`; and configurations are in `lsp/`:
-
-- `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
-
-LSP configurations used are downloaded from [neovim lspconfig github](https://github.com/neovim/nvim-lspconfig/tree/master/lsp).
-
-Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
-
-- Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
+- nvim-lspconfig — pre-built launch configurations (cmd, filetypes, root detection) for 100+ servers
+- mason.nvim — UI and engine for downloading/installing language tools (servers, formatters, linters, DAPs) into a managed directory
+- mason-lspconfig.nvim — bridges mason with nvim-lspconfig so installed servers are automatically wired up
+- mason-tool-installer.nvim — declarative ensure_installed list so all tools are auto-installed on startup without manual :MasonInstall
 
 ## Git integration
 
