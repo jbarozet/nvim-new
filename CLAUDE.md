@@ -14,10 +14,17 @@ Neovim's own runtime conventions so the editor does the heavy lifting.
 - **`plugin/` auto-sourcing** — Neovim automatically sources every `*.lua` file
   under `plugin/` at startup (after `init.lua`). Each plugin gets its own file
   there; no central plugin registry needed.
-- **`lsp/` server configs** — Neovim 0.11+ natively loads `lsp/<name>.lua` files
-  when `vim.lsp.enable('<name>')` is called. No lspconfig wrappers. The wildcard
-  `vim.lsp.config('*', {...})` in `plugin/blink.cmp.lua` applies blink capabilities
-  to all servers after blink is set up.
+- **`vim.lsp.config`** — per-server overrides are applied inline in `lua/lsp.lua` via
+  `vim.lsp.config('<name>', {...})`. The wildcard `vim.lsp.config('*', {...})` in
+  `plugin/blink.cmp.lua` applies blink capabilities to all servers after blink is set up.
+  There is no `lsp/` directory — mason-lspconfig handles server discovery and setup.
+- **`mason` + `mason-lspconfig` + `mason-tool-installer`** — used for fully automated
+  installation of LSP servers, formatters, linters, and DAP adapters. `mason-lspconfig`
+  bridges Mason with `vim.lsp.enable()` so servers are auto-installed on demand.
+  `mason-tool-installer` handles non-LSP tools (prettier, stylua, ruff, debuggers, etc.).
+  These are configured in `lua/lsp.lua` (not in a `plugin/` file) because they must be
+  set up before LSP servers attach. This is the reason `nvim-lspconfig` is also present —
+  `mason-lspconfig` requires it as a peer dependency to resolve server names.
 - **`vim.ui2`** (native 0.12 UI) — opted in via `require('vim._core.ui2').enable({})`
   in `lua/configs.lua`.
 
@@ -28,11 +35,10 @@ Neovim's own runtime conventions so the editor does the heavy lifting.
 | `init.lua` | Entry point — requires `configs`, `keymaps`, `lsp`, `diagnostics`, `autocmds` |
 | `lua/configs.lua` | `vim.opt` settings, filetype overrides, leader key, ui2 opt-in |
 | `lua/keymaps.lua` | All global keymaps |
-| `lua/lsp.lua` | `LspAttach` keymap block + `vim.lsp.enable()` server list |
+| `lua/lsp.lua` | `LspAttach` keymap block + `vim.lsp.enable()` server list + mason/lspconfig setup |
 | `lua/diagnostics.lua` | `vim.diagnostic.config` and diagnostic keymaps |
 | `lua/autocmds.lua` | All autocommands |
 | `plugin/*.lua` | One file per plugin — `vim.pack.add()` + setup, auto-sourced by Neovim |
-| `lsp/*.lua` | Per-server LSP configs, auto-loaded by `vim.lsp.enable()` |
 
 ## Plugin inventory
 
@@ -50,7 +56,7 @@ Neovim's own runtime conventions so the editor does the heavy lifting.
 | `plugin/nvim-linter.lua` | nvim-lint | Linter runner (installed, setup not yet configured) |
 | `plugin/toggleterm.lua` | toggleterm | Floating terminal |
 | `plugin/copilot.lua` | copilot.vim | GitHub Copilot inline suggestions |
-| `plugin/mason-nvim.lua` | mason | LSP server / tool installation UI |
+| `lua/lsp.lua` (inline) | mason + mason-lspconfig + mason-tool-installer + nvim-lspconfig | Automated install of LSP servers, formatters, linters, DAP adapters |
 | `plugin/code-companion.lua` | code-companion | AI coding assistant |
 
 ## LSP servers
@@ -59,11 +65,11 @@ Enabled via `vim.lsp.enable()` in `lua/lsp.lua`; configs in `lsp/`:
 
 `pyright`, `yamlls`, `jsonls`, `terraformls`, `bashls`, `marksman`, `lua_ls`, `ruff`
 
-Formatters managed by Mason (not LSP servers): `prettier`, `stylua`, `ruff`
-Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
+Auto-installed by `mason-tool-installer` along with formatters and linters:
+`prettier`, `stylua`, `ruff`, `ts_ls`, `rust_analyzer`
 
-`lsp/terraform_lsp.lua` is kept as a reference for the alternative
-`juliosueiras/terraform-lsp` server but is not enabled.
+Formatters (`prettier`, `stylua`, `ruff`) are not LSP servers — invoked via
+`conform.nvim` (`plugin/conform.lua`), not via `vim.lsp.enable()`.
 
 ## Completion (blink.cmp)
 
@@ -103,8 +109,9 @@ Invoked via `conform.nvim` (`plugin/conform.lua`), not via LSP.
 ## Important conventions
 
 - All LSP keymaps set in `LspAttach` must include `buffer = ev.buf` to be buffer-local.
-- New LSP server: add a `lsp/<name>.lua` config file, then add the name to
-  `vim.lsp.enable()` in `lua/lsp.lua`. No other wiring needed.
+- New LSP server: add a `lsp/<name>.lua` config file, add the name to
+  `vim.lsp.enable()` in `lua/lsp.lua`, and add it to `mason-tool-installer`'s
+  `ensure_installed` list so Mason auto-installs it.
 - Do not add a direct `<leader>f` binding — it shadows the `<leader>f*` file picker prefix.
 - Diagnostic line highlight groups (`DiagnosticErrorLine` etc.) are defined in
   `plugin/colorscheme.lua` after the colorscheme loads — do not move them earlier.

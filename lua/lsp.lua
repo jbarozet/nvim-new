@@ -52,34 +52,46 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-vim.lsp.enable({
-	"pyright",
-	"yamlls",
-	"jsonls",
-	"terraformls",
-	"bashls",
-	"marksman",
-	"lua_ls",
-	"ruff",
+vim.pack.add({
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 })
 
--- require("mason-tool-installer").setup({
--- 	ensure_installed = {
--- 		"pyright", -- python lsp
--- 		"yamlls",
--- 		"jsonls",
--- 		-- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp (seems there are some issues with it)
--- 		"terraformls", -- Use this is you want HashiCorp's terraform-ls
--- 		"bashls",
--- 		"marksman", -- makrdown lsp
--- 		"lua_ls",
--- 		"ts_ls",
--- 		"rust_analyzer",
--- 		-- Add any other LSP servers you want Mason to manage
--- 		-- Formatters
--- 		"prettier",
--- 		"stylua",
--- 		-- Linters
--- 		"ruff", -- Python linter (and formatter)
--- 	},
--- })
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"pyright", -- python lsp
+		"yamlls",
+		"jsonls",
+		-- "terraform-lsp", -- Use this if you want juliosueiras/terraform-lsp (seems there are some issues with it)
+		"terraformls", -- Use this is you want HashiCorp's terraform-ls
+		"bashls",
+		"marksman", -- makrdown lsp
+		"lua_ls",
+		"ts_ls",
+		"rust_analyzer",
+		-- Add any other LSP servers you want Mason to manage
+		-- Formatters
+		"prettier",
+		"stylua",
+		-- Linters
+		"ruff", -- Python linter (and formatter)
+	},
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- Remove the warning on undefined global vim
+-- ═══════════════════════════════════════════════════════════
+
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+		},
+	},
+})
